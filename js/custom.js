@@ -29,6 +29,37 @@ function init() {
 
 
   /* ============================= */
+  /* PŘICHYCENÁ HLAVIČKA – LIŠTA ODJEDE NAHORU */
+  /* ============================= */
+  /* Šablona při scrollu přidá body odsazení ve výšce hlavičky. To by    */
+  /* posunulo lištu pod hlavičku – odsazení proto přesuneme až pod lištu. */
+
+  var stickyHeader = document.getElementById('header');
+
+  if (stickyHeader && stickyHeader.parentNode) {
+
+    var headerSpacer = document.createElement('div');
+    headerSpacer.className = 'kps-header-spacer';
+    stickyHeader.parentNode.insertBefore(headerSpacer, stickyHeader.nextSibling);
+
+    function moveHeaderOffset() {
+      var offset = document.body.style.paddingTop;
+      if (offset && offset !== '0px' && stickyHeader.classList.contains('fixed-menu')) {
+        headerSpacer.style.height = offset;
+        document.body.style.paddingTop = '0px';
+      } else if (!stickyHeader.classList.contains('fixed-menu')) {
+        headerSpacer.style.height = '';
+      }
+    }
+
+    var headerOffsetObserver = new MutationObserver(moveHeaderOffset);
+    headerOffsetObserver.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    headerOffsetObserver.observe(stickyHeader, { attributes: true, attributeFilter: ['class'] });
+
+  }
+
+
+  /* ============================= */
   /* NADPIS KATEGORIÍ NA HOMEPAGE */
   /* ============================= */
 
