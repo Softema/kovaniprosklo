@@ -417,5 +417,6 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .product-top-summary { display: flex; flex-direction: column; align-items: flex-start; }
+.product-top-summary .product-top-parameters { order: -2; margin: 0 0 10px; }
 .product-top-summary .product-top-code { order: -1; margin: 0 0 8px; }
 .product-top-summary .product-top-detail-link { margin-left: 0; padding-left: 0; }
