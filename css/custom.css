@@ -15,27 +15,114 @@ h1, h2, h3, h4, h5, h6,
   height: auto;
 }
 
-/* Posun navigace, aby nezačínala přes zvětšené logo */
-@media (min-width: 1201px) {
-  #navigation {
-    margin-left: 260px !important;
-    width: calc(100% - 730px) !important;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-  #navigation {
-    margin-left: 230px !important;
-    width: calc(100% - 658px) !important;
-  }
-}
-
 /* Tablet: menší logo, aby se nepotkalo s navigací */
 @media (min-width: 768px) and (max-width: 991px) {
   #header .site-name img {
     max-width: 185px !important;
     height: auto;
   }
+}
+
+/* HLAVIČKA – DESKTOP OD 992 PX: DVA ŘÁDKY */
+/* 1. řádek: logo + hledání, účet, košík; 2. řádek: menu kategorií */
+
+@media (min-width: 992px) {
+
+  #header .container.navigation-wrapper {
+    position: relative;
+    padding-bottom: 52px !important;
+  }
+
+  #header #navigation {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0;
+    left: 0 !important;
+    right: 0;
+    width: 100% !important;
+    height: 52px !important;
+    margin-left: 0 !important;
+    transform: none !important;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  #header #navigation .navigation-in {
+    position: relative;
+    width: 100% !important;
+    height: 100%;
+  }
+
+  #header #navigation ul.menu-level-1 {
+    justify-content: center;
+    flex-wrap: nowrap;
+    height: 100%;
+  }
+
+  #header #navigation ul.menu-level-1 > li {
+    flex: 0 0 auto;
+  }
+
+  #header #navigation ul.menu-level-1 > li > a {
+    height: 51px !important;
+    line-height: 51px !important;
+    white-space: nowrap;
+  }
+
+  #header #navigation ul.menu-level-1 > li > a::after {
+    bottom: 12px !important;
+  }
+
+  /* všechny kategorie vidět, „Více kategorií“ pryč */
+  #header #navigation .navigation-in ul.menu-level-1 > li.splitted {
+    visibility: visible !important;
+    display: block !important;
+  }
+
+  #header .menu-helper {
+    display: none !important;
+  }
+
+  /* rozbalovací menu pod druhým řádkem přes celou šířku */
+  #header #navigation ul.menu-level-1 > li.exp > ul {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* hlavička při scrollu */
+  #header.fixed-menu #navigation {
+    height: 48px !important;
+  }
+
+  #header.fixed-menu #navigation ul.menu-level-1 > li > a {
+    height: 47px !important;
+    line-height: 47px !important;
+  }
+
+  #header.fixed-menu #navigation ul.menu-level-1 > li > a::after {
+    bottom: 10px !important;
+  }
+
+  #header.fixed-menu .container.navigation-wrapper {
+    padding-bottom: 48px !important;
+  }
+
+}
+
+/* menší desktop: menší písmo a mezery, aby se vešlo všech 6 kategorií */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+  #header #navigation ul.menu-level-1 > li > a {
+    font-size: 13px !important;
+  }
+
+  #header #navigation ul.menu-level-1 > li + li > a {
+    margin-left: 12px !important;
+  }
+
 }
 
 /* INFORMAČNÍ PROUŽEK */
@@ -60,9 +147,9 @@ h1, h2, h3, h4, h5, h6,
 
 }
 
-/* HAMBURGER MENU */
+/* HAMBURGER MENU (tablet) */
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 991px) {
 
   .menu-helper {
     width: auto;
