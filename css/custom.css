@@ -1,1 +1,334 @@
 /* Vlastní styly pro kovaniprosklo – Shoptet */
+
+/* TYPOGRAFIE */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Hind Mysuru', sans-serif;
+}
+
+
+/* HEADER */
+
+#header .site-name img {
+  max-width: 220px;
+  height: auto;
+}
+
+/* Posun navigace, aby nezačínala přes zvětšené logo */
+@media (min-width: 1201px) {
+  #navigation {
+    margin-left: 260px !important;
+    width: calc(100% - 730px) !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  #navigation {
+    margin-left: 230px !important;
+    width: calc(100% - 658px) !important;
+  }
+}
+
+/* Tablet: menší logo, aby se nepotkalo s navigací */
+@media (min-width: 768px) and (max-width: 991px) {
+  #header .site-name img {
+    max-width: 185px !important;
+    height: auto;
+  }
+}
+
+/* INFORMAČNÍ PROUŽEK */
+
+.site-msg.information {
+  background-color: #4fa9d9 !important;
+  transition: none;
+}
+
+.site-msg.information .text,
+.site-msg.information .text a {
+  color: #2f3438 !important;
+}
+
+
+@media (max-width: 767px) {
+
+  .overall-wrapper > div:first-child.site-msg.information,
+  .site-msg.information {
+    display: none !important;
+  }
+
+}
+
+/* HAMBURGER MENU */
+
+@media (min-width: 768px) {
+
+  .menu-helper {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-helper > span {
+    display: none;
+  }
+
+  .menu-helper::before {
+    content: "Více kategorií";
+    white-space: nowrap;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .menu-helper::after {
+    order: -1;
+  }
+
+}
+
+
+/* HOMEPAGE */
+/* barevný překryv banneru pryč*/
+.type-index .extended-banner,
+.type-index .extended-banner-texts,
+.type-index .extended-banner::before,
+.type-index .extended-banner::after,
+.type-index .extended-banner-texts::before,
+.type-index .extended-banner-texts::after {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+.extended-banner-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 30px !important;
+  background: #4fa9d9 !important;
+  border-color: #4fa9d9 !important;
+  color: #fff !important;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.extended-banner-link::after {
+  display: none;
+}
+
+.extended-banner-link:hover {
+  background: #2f3438 !important;
+  border-color: #2f3438 !important;
+  color: #fff !important;
+}
+
+.hp-categories .hp-categories-posts .news-wrapper .news-item .image a::after {
+  display: none;
+}
+
+/* Roh miniatur kategorií na HP – modrý */
+.hp-categories .hp-categories-posts .news-wrapper .news-item .image a::before {
+  border-bottom-color: #4fa9d9 !important;
+}
+
+/* Hover rohu */
+.hp-categories .hp-categories-posts .news-wrapper .news-item:hover .image a::before {
+  border-bottom-color: #000 !important;
+}
+
+/* DETAIL PRODUKTU */
+
+/* Přidat do košíku */
+.product-top .add-to-cart button.add-to-cart-button {
+  background: var(--color-primary) !important;
+}
+
+.product-top .add-to-cart button.add-to-cart-button:hover {
+  background: var(--color-primary-hover) !important;
+}
+
+/* Cena */
+.p-info-wrapper .price-final {
+  font-size: 32px !important;
+  line-height: 1.1;
+}
+
+.product-top .availability-value {
+  margin-bottom: 0;
+}
+
+
+/* DETAIL PRODUKTU – DESKTOP */
+
+
+@media (min-width: 768px) {
+
+  /* Přesunutý název produktu */
+  .p-info-wrapper > h1 {
+    order: -1;
+    margin: 0;
+  }
+
+  /* Původní pozice H1 */
+  .p-detail-inner-header h1 {
+    display: none;
+  }
+
+  /* Blok pod názvem */
+  .product-top-summary {
+    order: -1;
+    width: 100%;
+    margin: 12px 0 20px;
+  }
+
+  /* Popisné parametry */
+  .product-top-parameters {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0 0 6px;
+  }
+
+  .product-top-parameter {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-secondary);
+  }
+
+  .product-top-parameter-label {
+    font-weight: 600;
+  }
+
+  .product-top-parameter-value {
+    font-weight: 400;
+  }
+
+  /* Detailní informace nahoře */
+  .product-top-detail-link {
+    display: inline-block;
+    margin-top: 2px;
+    color: var(--color-secondary);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Původní odkaz schováme až po vytvoření nového */
+  .p-info-wrapper.product-top-summary-ready
+  .p-short-description a[href="#description"] {
+    display: none !important;
+  }
+
+}
+
+
+/* DETAILNÍ TABY */
+
+
+#p-detail-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+#p-detail-tabs .shp-tab {
+  margin: 0;
+}
+
+#p-detail-tabs .shp-tab-link {
+  display: block;
+  padding: 10px 14px;
+  color: var(--color-secondary);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  border-radius: 0;
+}
+
+#p-detail-tabs .shp-tab-link:hover {
+  background: #f7f6f3;
+}
+
+#p-detail-tabs .shp-tab.active .shp-tab-link {
+  background: #f7f6f3;
+  border-left-color: var(--color-primary);
+  font-weight: 600;
+}
+
+#p-detail-tabs .shp-tab-link::before,
+#p-detail-tabs .shp-tab-link::after {
+  display: none;
+}
+
+@media (max-width: 767px) {
+
+  #p-detail-tabs .shp-tab-link {
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+  }
+
+  #p-detail-tabs .shp-tab.active .shp-tab-link {
+    border-left-color: transparent;
+    border-bottom-color: var(--color-primary);
+  }
+
+}
+
+
+
+/* KOŠÍK */
+
+
+#continue-order-button,
+#orderFormButton {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+#continue-order-button:hover,
+#orderFormButton:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.ordering-process .sidebar-in-cart .checkout-box-wrapper {
+  margin-top: 32px;
+}
+
+
+/* VLASTNÍ HORNÍ LIŠTA */
+.kps-topbar {
+  background: #4fa9d9;
+  color: #2f3438;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 8px 16px;
+  text-align: center;
+}
+.kps-topbar span { margin: 0 10px; white-space: nowrap; }
+.kps-topbar a { color: #2f3438; font-weight: 600; text-decoration: none; }
+.kps-topbar a:hover { text-decoration: underline; }
+
+@media (max-width: 767px) {
+  .kps-topbar { display: none; }
+}
+
+/* původní zprávu Shoptetu nepoužíváme */
+.site-msg.information { display: none !important; }
+
+/* Kód produktu pod názvem */
+.product-top-code {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: var(--color-secondary);
+}
+
+.product-top-summary { display: flex; flex-direction: column; align-items: flex-start; }
+.product-top-summary .product-top-code { order: -1; margin: 0 0 8px; }
+.product-top-summary .product-top-detail-link { margin-left: 0; padding-left: 0; }

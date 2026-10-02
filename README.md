@@ -15,6 +15,9 @@ Administrace → Vzhled a obsah → Editor → HTML kód
 **Záhlaví (head):**
 
 ```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Mysuru:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/softema/kovaniprosklo@main/css/custom.css">
 ```
 
