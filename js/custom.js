@@ -42,17 +42,52 @@ function init() {
     headerSpacer.className = 'kps-header-spacer';
     stickyHeader.parentNode.insertBefore(headerSpacer, stickyHeader.nextSibling);
 
-    function moveHeaderOffset() {
-      var offset = document.body.style.paddingTop;
-      if (offset && offset !== '0px' && stickyHeader.classList.contains('fixed-menu')) {
-        headerSpacer.style.height = offset;
-        document.body.style.paddingTop = '0px';
-      } else if (!stickyHeader.classList.contains('fixed-menu')) {
-        headerSpacer.style.height = '';
-      }
+    var headerNaturalTop = 0;
+    var headerNaturalHeight = 0;
+    var headerFixedHeight = null;
+
+    function measureNaturalHeader() {
+      headerNaturalTop = stickyHeader.getBoundingClientRect().top + window.pageYOffset;
+      headerNaturalHeight = stickyHeader.offsetHeight;
     }
 
-    var headerOffsetObserver = new MutationObserver(moveHeaderOffset);
+    function updateStickyHeader() {
+      var isFixed = stickyHeader.classList.contains('fixed-menu');
+
+      if (document.body.style.paddingTop && document.body.style.paddingTop !== '0px') {
+        document.body.style.paddingTop = '0px';
+      }
+
+      if (!isFixed) {
+        headerSpacer.style.height = '';
+        measureNaturalHeader();
+        return;
+      }
+
+      if (headerFixedHeight === null) {
+        headerFixedHeight = stickyHeader.offsetHeight;
+      }
+
+      /* Přichytit až ve chvíli, kdy na sebe zmenšená hlavička a obsah    */
+      /* přesně navazují – jinak by mezi nimi byla bílá mezera.            */
+      var threshold = headerNaturalTop + headerNaturalHeight - headerFixedHeight;
+      if (window.pageYOffset < threshold) {
+        stickyHeader.classList.remove('fixed-menu');
+        return;
+      }
+
+      headerSpacer.style.height = headerNaturalHeight + 'px';
+    }
+
+    /* prohlížeč by jinak při přichycení sám posunul stránku */
+    document.documentElement.style.overflowAnchor = 'none';
+
+    measureNaturalHeader();
+    window.addEventListener('load', function () {
+      if (!stickyHeader.classList.contains('fixed-menu')) { measureNaturalHeader(); }
+    });
+
+    var headerOffsetObserver = new MutationObserver(updateStickyHeader);
     headerOffsetObserver.observe(document.body, { attributes: true, attributeFilter: ['style'] });
     headerOffsetObserver.observe(stickyHeader, { attributes: true, attributeFilter: ['class'] });
 
