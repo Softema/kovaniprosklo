@@ -33,6 +33,15 @@ h1, h2, h3, h4, h5, h6,
     padding-bottom: 52px !important;
   }
 
+  /* nižší řádek s logem a ikonami */
+  #header .header-top {
+    height: 80px !important;
+  }
+
+  #header.fixed-menu .header-top {
+    height: 64px !important;
+  }
+
   #header #navigation {
     position: absolute !important;
     top: auto !important;
@@ -110,6 +119,18 @@ h1, h2, h3, h4, h5, h6,
     padding-bottom: 48px !important;
   }
 
+  /* lišta produktu (název, cena, košík) pod přichycenou hlavičkou */
+  .fixed-cart-line {
+    top: 112px !important;
+  }
+
+}
+
+/* lišta produktu jen při přichycené hlavičce – jinak by problikla přes hlavičku */
+@media (min-width: 768px) {
+  body:not(.kps-header-fixed) .fixed-cart-line {
+    display: none !important;
+  }
 }
 
 /* menší desktop: menší písmo a mezery, aby se vešlo všech 6 kategorií */

@@ -53,6 +53,7 @@ function init() {
 
     function updateStickyHeader() {
       var isFixed = stickyHeader.classList.contains('fixed-menu');
+      document.body.classList.toggle('kps-header-fixed', isFixed);
 
       if (document.body.style.paddingTop && document.body.style.paddingTop !== '0px') {
         document.body.style.paddingTop = '0px';
@@ -73,6 +74,8 @@ function init() {
       var threshold = headerNaturalTop + headerNaturalHeight - headerFixedHeight;
       if (window.pageYOffset < threshold) {
         stickyHeader.classList.remove('fixed-menu');
+        document.body.classList.remove('kps-header-fixed');
+        headerSpacer.style.height = '';
         return;
       }
 
@@ -86,6 +89,9 @@ function init() {
     window.addEventListener('load', function () {
       if (!stickyHeader.classList.contains('fixed-menu')) { measureNaturalHeader(); }
     });
+
+    /* při scrollu zpět nahoru šablona třídu nemění – kontrolujeme sami */
+    window.addEventListener('scroll', updateStickyHeader, { passive: true });
 
     var headerOffsetObserver = new MutationObserver(updateStickyHeader);
     headerOffsetObserver.observe(document.body, { attributes: true, attributeFilter: ['style'] });
