@@ -27,6 +27,9 @@ function init() {
 
   }
 
+  /* lišta je na místě – rezervované místo z CSS už není potřeba */
+  document.body.classList.add('kps-topbar-ready');
+
 
   /* ============================= */
   /* PŘICHYCENÁ HLAVIČKA – LIŠTA ODJEDE NAHORU */
