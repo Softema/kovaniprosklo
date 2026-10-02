@@ -74,11 +74,11 @@ h1, h2, h3, h4, h5, h6,
 
   /* nižší řádek s logem a ikonami */
   #header .header-top {
-    height: 80px !important;
+    height: 64px !important;
   }
 
   #header.fixed-menu .header-top {
-    height: 64px !important;
+    height: 56px !important;
   }
 
   #header #navigation {
@@ -160,7 +160,7 @@ h1, h2, h3, h4, h5, h6,
 
   /* lišta produktu (název, cena, košík) pod přichycenou hlavičkou */
   .fixed-cart-line {
-    top: 112px !important;
+    top: 104px !important;
   }
 
 }
