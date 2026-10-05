@@ -104,6 +104,22 @@ function init() {
 
 
   /* ============================= */
+  /* PATIČKA – E-MAIL V KONTAKTU */
+  /* ============================= */
+
+  var footerContactList = document.querySelector('.custom-footer__contact .contact-box ul');
+
+  if (footerContactList && !footerContactList.querySelector('a[href^="mailto:"]')) {
+    var mailItem = document.createElement('li');
+    mailItem.innerHTML =
+      '<span class="mail">' +
+      '<a href="mailto:kovani@kovaniprosklo.cz">kovani@kovaniprosklo.cz</a>' +
+      '</span>';
+    footerContactList.appendChild(mailItem);
+  }
+
+
+  /* ============================= */
   /* NADPIS KATEGORIÍ NA HOMEPAGE */
   /* ============================= */
 
