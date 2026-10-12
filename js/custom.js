@@ -104,19 +104,28 @@ function init() {
 
 
   /* ============================= */
-  /* PATIČKA – E-MAIL V KONTAKTU */
+  /* PATIČKA – E-MAIL POD TELEFONEM */
   /* ============================= */
+  /* Šablona kopíruje kontakt i do horního řádku patičky vedle loga, */
+  /* a to až po načtení – e-mail proto doplňujeme opakovaně.         */
 
-  var footerContactList = document.querySelector('.custom-footer__contact .contact-box ul');
-
-  if (footerContactList && !footerContactList.querySelector('a[href^="mailto:"]')) {
-    var mailItem = document.createElement('li');
-    mailItem.innerHTML =
-      '<span class="mail">' +
-      '<a href="mailto:kovani@kovaniprosklo.cz">kovani@kovaniprosklo.cz</a>' +
-      '</span>';
-    footerContactList.appendChild(mailItem);
+  function addFooterMail() {
+    var lists = document.querySelectorAll('#footer .contact-box ul');
+    for (var m = 0; m < lists.length; m++) {
+      if (lists[m].querySelector('a[href^="mailto:"]')) { continue; }
+      var mailItem = document.createElement('li');
+      mailItem.innerHTML =
+        '<span class="mail">' +
+        '<a href="mailto:kovani@kovaniprosklo.cz">kovani@kovaniprosklo.cz</a>' +
+        '</span>';
+      lists[m].appendChild(mailItem);
+    }
   }
+
+  addFooterMail();
+  window.addEventListener('load', addFooterMail);
+  setTimeout(addFooterMail, 1500);
+  setTimeout(addFooterMail, 4000);
 
 
   /* ============================= */
