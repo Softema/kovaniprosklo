@@ -194,12 +194,6 @@ function init() {
     }
 
 
-    /* POPISNÉ PARAMETRY (výhradně z #description) */
-    var parametersTable = document.querySelector(
-      '#description .extended-description .detail-parameters'
-    );
-
-
     /* PŮVODNÍ ODKAZ "DETAILNÍ INFORMACE" (hledáme podle textu) */
     function findOriginalDetailLink() {
       var candidates = infoWrapper ? infoWrapper.querySelectorAll('a') : [];
@@ -225,48 +219,6 @@ function init() {
       if (productCode) {
         productCode.classList.add('product-top-code');
         summary.appendChild(productCode);
-      }
-
-      /* PARAMETRY – max 3, bez Kategorie/Hmotnost */
-      var parametersWrapper = document.createElement('div');
-      parametersWrapper.className = 'product-top-parameters';
-
-      var shownParameters = 0;
-      var EXCLUDED_LABELS = ['kategorie', 'hmotnost'];
-
-      if (parametersTable) {
-        var rows = parametersTable.querySelectorAll('tbody tr');
-        for (var j = 0; j < rows.length && shownParameters < 3; j++) {
-          var row = rows[j];
-          var labelElement = row.querySelector('th .row-header-label');
-          var valueElement = row.querySelector('td');
-          if (!labelElement || !valueElement) { continue; }
-
-          var label = labelElement.textContent.replace(/\s+/g, ' ').replace(/:\s*$/, '').trim();
-          var value = valueElement.textContent.replace(/\s+/g, ' ').trim();
-          if (!label || !value) { continue; }
-          if (EXCLUDED_LABELS.indexOf(label.toLowerCase()) !== -1) { continue; }
-
-          var parameter = document.createElement('div');
-          parameter.className = 'product-top-parameter';
-
-          var parameterLabel = document.createElement('span');
-          parameterLabel.className = 'product-top-parameter-label';
-          parameterLabel.textContent = label + ': ';
-
-          var parameterValue = document.createElement('span');
-          parameterValue.className = 'product-top-parameter-value';
-          parameterValue.textContent = value;
-
-          parameter.appendChild(parameterLabel);
-          parameter.appendChild(parameterValue);
-          parametersWrapper.appendChild(parameter);
-          shownParameters++;
-        }
-      }
-
-      if (shownParameters > 0) {
-        summary.appendChild(parametersWrapper);
       }
 
       /* ODKAZ "DETAILNÍ INFORMACE" – nový vzhled, původní funkčnost */
@@ -314,6 +266,59 @@ function init() {
     var cart = document.querySelector('.add-to-cart');
     if (delivery && cart) {
       cart.insertAdjacentElement('afterend', delivery);
+    }
+
+  }
+
+
+  /* ============================= */
+  /* DETAIL PRODUKTU – DOPLŇKOVÉ PARAMETRY NAD CENOU */
+  /* ============================= */
+  /* Kopie tabulky „Doplňkové parametry“ z popisu produktu, bez řádku */
+  /* Kategorie. Kopie nesmí mít třídu .detail-parameters – šablona     */
+  /* Carbon na ni nad cenou navazuje styly a skript pro výběr variant. */
+
+  var topParamsPrice = document.querySelector('.p-detail .p-info-wrapper > .price-line');
+  var sourceParams = document.querySelector('#description .extended-description table.detail-parameters');
+
+  if (topParamsPrice && sourceParams && !document.querySelector('.kps-top-params')) {
+
+    var paramsCopy = sourceParams.cloneNode(true);
+    paramsCopy.className = 'kps-top-params-table';
+    paramsCopy.removeAttribute('id');
+
+    var copyRows = paramsCopy.querySelectorAll('tr');
+    for (var r = 0; r < copyRows.length; r++) {
+      var rowLabel = copyRows[r].querySelector('th .row-header-label');
+      if (!rowLabel) { continue; }
+      var labelText = '';
+      for (var n = 0; n < rowLabel.childNodes.length; n++) {
+        if (rowLabel.childNodes[n].nodeType === 3) { labelText += rowLabel.childNodes[n].textContent; }
+      }
+      if (labelText.replace(/\s+/g, ' ').trim().toLowerCase() === 'kategorie') {
+        copyRows[r].parentNode.removeChild(copyRows[r]);
+      }
+    }
+
+    if (paramsCopy.querySelector('tr')) {
+
+      var paramsBox = document.createElement('div');
+      paramsBox.className = 'kps-top-params';
+      paramsBox.appendChild(paramsCopy);
+      topParamsPrice.parentNode.insertBefore(paramsBox, topParamsPrice);
+
+      /* Nápověda (?) – stejný Bootstrap tooltip, jaký používá Shoptet */
+      var tips = paramsCopy.querySelectorAll('.show-tooltip');
+      for (var t = 0; t < tips.length; t++) {
+        if (!tips[t].getAttribute('title') && tips[t].getAttribute('data-original-title')) {
+          tips[t].setAttribute('title', tips[t].getAttribute('data-original-title'));
+        }
+        tips[t].removeAttribute('aria-describedby');
+      }
+      if (tips.length && window.jQuery && window.jQuery.fn.tooltip) {
+        window.jQuery(tips).tooltip({ html: true, placement: 'auto', container: 'body' });
+      }
+
     }
 
   }

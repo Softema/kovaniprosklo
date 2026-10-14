@@ -330,29 +330,6 @@ h1, h2, h3, h4, h5, h6,
     margin: 12px 0 20px;
   }
 
-  /* Popisné parametry */
-  .product-top-parameters {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    margin: 0 0 6px;
-  }
-
-  .product-top-parameter {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: var(--color-secondary);
-  }
-
-  .product-top-parameter-label {
-    font-weight: 600;
-  }
-
-  .product-top-parameter-value {
-    font-weight: 400;
-  }
-
   /* Detailní informace nahoře */
   .product-top-detail-link {
     display: inline-block;
@@ -498,6 +475,66 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .product-top-summary { display: flex; flex-direction: column; align-items: flex-start; }
-.product-top-summary .product-top-parameters { order: -2; margin: 0 0 10px; }
 .product-top-summary .product-top-code { order: -1; margin: 0 0 8px; }
 .product-top-summary .product-top-detail-link { margin-left: 0; padding-left: 0; }
+
+/* DETAIL PRODUKTU – DOPLŇKOVÉ PARAMETRY NAD CENOU */
+/* Styl převzatý z původní tabulky šablony                              */
+/* (.type-detail .tab-content .detail-parameters), jen menší odsazení   */
+/* a písmo.                                                             */
+.kps-top-params {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 20px;
+}
+
+/* stejné pořadí jako .price-line (Carbon: order -1) – blok tak zůstane */
+/* v rámci flexu .p-info-wrapper těsně před cenou                       */
+.p-info-wrapper > .kps-top-params {
+  order: -1;
+}
+
+.kps-top-params-table {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: auto;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.kps-top-params-table tr:nth-child(odd) {
+  background: #fafafa;
+}
+
+.kps-top-params-table th,
+.kps-top-params-table td {
+  text-align: left;
+  vertical-align: middle;
+  padding: 8px 20px 8px 12px;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.kps-top-params-table th {
+  font-weight: 600;
+  width: 40%;
+}
+
+.kps-top-params-table tr a {
+  text-decoration: none;
+}
+
+.kps-top-params-table tr a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .kps-top-params {
+    margin-top: 12px;
+  }
+
+  .kps-top-params-table th,
+  .kps-top-params-table td {
+    padding: 7px 10px 7px 8px;
+  }
+}
